@@ -2,10 +2,11 @@
 const mysql = require('mysql2');
 // MySQL 설정
 const connection = mysql.createConnection({
-    host: 'localhost',
+    host: '127.0.0.1', // 그냥 로컬호스트 하면 오류남
     user: 'root',
     password: 'alsWkd12!@',
-    database: 'webffle_blog'
+    database: 'webffle_blog',
+    port: '3306',
 });
 
 // MySQL 연결

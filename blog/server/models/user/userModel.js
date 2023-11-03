@@ -19,7 +19,7 @@ connection.connect((err) => {
 });
 
 
-// User Moel
+// User Model
 const userModel = {
     // 유저 불러오기
     getUsers: (userData, callback) => {
@@ -36,6 +36,7 @@ const userModel = {
             callback(null, results); // 결과를 콜백으로 반환
         });
     },
+    // 유저 회원가입
     createUsers: (userData, callback) => {
         // SQL문
         const insertQuery = 'INSERT INTO users (uid, username, userid, password) VALUES (?, ?, ?, ?)';

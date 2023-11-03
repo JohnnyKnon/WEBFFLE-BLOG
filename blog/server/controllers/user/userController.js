@@ -9,6 +9,7 @@ const generateUID = () => {
     return `${randomSegment()}-${randomSegment()}-${randomSegment()}`;
 }
 
+// 유저 회원가입 함수
 const createUser = async (req, res) => {
     // Model에서 처리할 신규 유저 데이터
     const userData = {
@@ -34,15 +35,18 @@ const loginUser = async (req, res) => {
         };
         // 유저 모델
         userModel.getUsers(userData, (err, results) => {
+            console.log(results); // results값 확인
+            // 서버 자체에 오류가 발생할 경우
             if (err) {
                 return res.status(500).json({ success: false, error: '유저 데이터 조회 실패' });
             }
-
+            // 일치하는 유저가 없을 경우
             if (results.length === 0) {
                 return res.json({ success: false, message: '일치하는 유저 없음' });
             }
-
+            // 성공했을 경우 JWT로 토큰을 발급
             const token = JWT.sign({ ...results[0] }, SECRET_KEY);
+            console.log(token); // 토큰이 어떤식으로 형성되는지 확인
             return res.json({ success: true, message: '유저 조회 성공', user: results[0], token:token, });
         });
 
@@ -51,7 +55,7 @@ const loginUser = async (req, res) => {
     }
 };
 
-//  로그인 인증
+//  로그인 인증 함수
 const loginAuth = async (req, res) =>{
     // token
     const token = req.headers.authorization;
